@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 01b218e063b17b342bb5610d9494b0ae
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Kudofun
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e096a0dc8a14f0e4289876452c1c4ff2, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

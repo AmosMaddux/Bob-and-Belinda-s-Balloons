@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Cannonball
+  - Cannon
+  - Ground
+  - Climber
+  - ScrollStopper
+  - HeightDetector
+  - Level 1
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Barrier
+  - Water
+  - UI
+  - Ground
+  - Climber
+  - Unbreakable
+  - Cannonball
+  - Interactables
+  - Switchables
+  - Scrolling
+  - Bomb
+  - Bumper
+  - UpperBarrier
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3479795283
+    locked: 0
+  - name: Ground
+    uniqueID: 2052939427
+    locked: 0
+  - name: Foreground
+    uniqueID: 1638272755
+    locked: 0
+  - name: BackgroundDecor
+    uniqueID: 3047708379
+    locked: 0
+  - name: Moveables
+    uniqueID: 153843675
+    locked: 0
+  - name: ForegroundDecor
+    uniqueID: 1840880679
+    locked: 0
+  - name: Joystick
+    uniqueID: 3218010957
+    locked: 0
+  - name: Shader
+    uniqueID: 2241636413
+    locked: 0

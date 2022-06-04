@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6407136bd903e6e42bf7e749b7a9dd01
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Kudofun Swash
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 53f16af60957fe34b8c6c48499c7451e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
