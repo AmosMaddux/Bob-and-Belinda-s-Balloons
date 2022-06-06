@@ -10,6 +10,8 @@ public class Bumper : MonoBehaviour
     LevelController levelController;
     Vector3 mainCameraPosition;
     BoxCollider2D bottomOfBumper;
+    RaycastHit2D hit;
+    Joystick joystick;
    
 
     //configs
@@ -17,6 +19,8 @@ public class Bumper : MonoBehaviour
     [SerializeField] private float heightCorrectionSpeed = 1f;
     [SerializeField] float minXPos;
     [SerializeField] float maxXPos;
+    [SerializeField] float raycastDistance;
+    [SerializeField] LayerMask targetLayer;
     bool canCameraMakeBumperScroll = true;
     bool catchUpMovementEnabled = false;
 
@@ -28,6 +32,7 @@ public class Bumper : MonoBehaviour
         levelController = FindObjectOfType<LevelController>();
         mainCameraPosition = FindObjectOfType<Camera>().transform.position;
         bottomOfBumper = GetComponent<BoxCollider2D>();
+        joystick = FindObjectOfType<Joystick>();
    
     }
 
@@ -39,16 +44,15 @@ public class Bumper : MonoBehaviour
         {
             Move();
         }
-        //MoveToCorrectHeight(); //I should set a another collider to check this. Instead of having it compute all the time.
 
-       // DetectHeight();
+      
         
     }
 
     public void Move()
     {
 
-       if (!catchUpMovementEnabled)
+       if (canMoveSideways())
         {
             float xMove = GetComponent<Joystick>().getBumperDirection().x * Time.deltaTime * movementSpeed; //multiply only the componenet you want
 
@@ -63,62 +67,84 @@ public class Bumper : MonoBehaviour
 
     }
 
-    public bool GetCanCameraMakeBumperScroll()
+    private bool canMoveSideways()
     {
-        return canCameraMakeBumperScroll;
-    }
+        float currentDirectionOfJoystick = Mathf.Sign(joystick.getBumperDirection().x);
+        Vector2 direction = new Vector2(currentDirectionOfJoystick, 0);
+        GameObject detectedObject = castRays(direction);
 
-   /* private void DetectHeight()
-    {
-        if(levelController.GetIsBumperStuck())
+        if (detectedObject != null)
         {
-            canCameraMakeBumperScroll = false;
+            if (detectedObject.CompareTag("Ground"))
+            {
+                Debug.Log("Collided with " + hit.collider.gameObject.name + " at position " + hit.collider.gameObject.transform.position);
+                return false;
+            }
+            else
+            {
+                Debug.Log("Not ground. Tag is " + detectedObject.tag 
+                             + ". Name is " + detectedObject.name 
+                             + ". Position is " + detectedObject.transform.position);
+                return true;
+            }
         }
         else
         {
-            float differenceInHeight = Camera.main.transform.position.y - this.transform.position.y;
-
-            if (differenceInHeight < 11.5 && differenceInHeight > 8.5)
-            {
-                canCameraMakeBumperScroll = true;
-                catchUpMovementEnabled = false;
-                Debug.Log("Difference in height between camera and bumper is " + (Camera.main.transform.position.y - this.transform.position.y));
-            }
-            else if (differenceInHeight > 11.5f)
-            {
-                catchUpMovementEnabled = true;
-                MoveToCorrectHeight(1);
-                Debug.Log("Difference in height between camera and bumper is " + (Camera.main.transform.position.y - this.transform.position.y));
-
-            }
-            else if (differenceInHeight < 8.5)
-            {
-                catchUpMovementEnabled = true;
-                MoveToCorrectHeight(-1);
-                Debug.Log("Difference in height between camera and bumper is " + (Camera.main.transform.position.y - this.transform.position.y));
-
-            }
+            Debug.Log("No collision");
+            return true;
         }
-        
-    }*/
+
+            
+    }
 
     
+       
 
-   /* public void MoveToCorrectHeight(int direction)
+
+    private GameObject castRays(Vector2 direction)
     {
-        float xMove = GetComponent<Joystick>().getBumperDirection().x * Time.deltaTime * movementSpeed; //multiply only the componenet you want
-
         
+        hit = Physics2D.Raycast(transform.position, direction, 1, targetLayer); //starts the raycast with an origin, direction, distance, and layer covnerted to an integer vlaue
+
+        Vector2 endPos = new Vector2(transform.position.x + direction.x, transform.position.y); //saves the endpoint of the raycast. For debugging? noy only that
+
+        Debug.DrawLine(transform.position, endPos, Color.blue);
+
+        if (hit.collider != null)
+        {
+            return hit.collider.gameObject;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void MoveToCorrectHeight()
+    {
+        /*float xMove = GetComponent<Joystick>().getBumperDirection().x * Time.deltaTime * movementSpeed; //multiply only the componenet you want
+
+
         Vector3 catchUpVector = new Vector3(this.transform.position.x, heightCorrectionSpeed * direction * Time.deltaTime, this.transform.position.z);
         this.transform.Translate(catchUpVector);
-*//*
+
         float targetPosition = Camera.main.transform.position.y - 10;
         Vector3 newMovementVector = new Vector3(this.transform.position.x, targetPosition, this.transform.position.z);
-        this.transform.position = Vector3.MoveTowards(this.transform.position, newMovementVector, heightCorrectionSpeed);*//*
-            
-        
-        
-    }*/
+        this.transform.position = Vector3.MoveTowards(this.transform.position, newMovementVector, heightCorrectionSpeed);*/
 
-   
+        transform.position = new Vector2(transform.position.x, (transform.position.y + 0.1f));
+
+
+
+    }
 }
+
+
+
+
+
+
+
+
+
+

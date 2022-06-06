@@ -575,21 +575,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7462663285990940154}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1186238454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186238451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80a2c22451b8027448e40b226caf055c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTile: {fileID: 11400000, guid: d3edcc221d5a4ea4ca6f0759d4cb6d95, type: 2}
-  groundTileMap: {fileID: 0}
-  climber: {fileID: 1111090597}
 --- !u!4 &1186238456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7462663286209826695, guid: 40dfd32ce994eec4fb255a0e9df830e6,
@@ -690,7 +675,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388314227}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c37ea1210be4a6449240a6aae5e401d, type: 3}
   m_Name: 
@@ -952,7 +937,7 @@ PrefabInstance:
     - target: {fileID: 4259323908224773727, guid: fd81f5610d4a3b541a3d4e4de6607d58,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.69
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 4259323908224773727, guid: fd81f5610d4a3b541a3d4e4de6607d58,
         type: 3}
@@ -1209,7 +1194,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 177927690, guid: 0acfe92035e3ec04e90ae0be2e9f47e3, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 499753866, guid: 0acfe92035e3ec04e90ae0be2e9f47e3, type: 3}
       propertyPath: m_IsActive
@@ -1229,7 +1214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1388314235, guid: 0acfe92035e3ec04e90ae0be2e9f47e3, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 98616021870320144, guid: 0acfe92035e3ec04e90ae0be2e9f47e3,
         type: 3}
@@ -1239,7 +1224,7 @@ PrefabInstance:
     - target: {fileID: 98616021870320144, guid: 0acfe92035e3ec04e90ae0be2e9f47e3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.28
+      value: -3.46
       objectReference: {fileID: 0}
     - target: {fileID: 98616021870320144, guid: 0acfe92035e3ec04e90ae0be2e9f47e3,
         type: 3}
@@ -1300,6 +1285,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BodyType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 98616021870320151, guid: 0acfe92035e3ec04e90ae0be2e9f47e3,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 98616021870320151, guid: 0acfe92035e3ec04e90ae0be2e9f47e3,
+        type: 3}
+      propertyPath: targetLayer.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 98616021870320151, guid: 0acfe92035e3ec04e90ae0be2e9f47e3,
         type: 3}
@@ -7955,15 +7950,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953434086, guid: cb792389fd1a0004fb3380f44e8c3cb0, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1484752164, guid: cb792389fd1a0004fb3380f44e8c3cb0, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1670349773, guid: cb792389fd1a0004fb3380f44e8c3cb0, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1110966572325918026, guid: cb792389fd1a0004fb3380f44e8c3cb0,
         type: 3}
@@ -8498,12 +8493,12 @@ PrefabInstance:
     - target: {fileID: 3060463791231571098, guid: cb90756b51ead1a44ae81a5ef5a1ac3e,
         type: 3}
       propertyPath: timeBetweenScrolls.Array.data[1]
-      value: 200
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3060463791231571098, guid: cb90756b51ead1a44ae81a5ef5a1ac3e,
         type: 3}
       propertyPath: timeBetweenScrolls.Array.data[2]
-      value: 30
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3060463791231571099, guid: cb90756b51ead1a44ae81a5ef5a1ac3e,
         type: 3}
