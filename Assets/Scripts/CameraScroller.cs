@@ -96,23 +96,33 @@ public class CameraScroller : MonoBehaviour
             
             if (!levelController.GetIsBumperStuck())
             {
-                
-                    bumper.transform.Translate(scrollVector);
+                Vector2 bumperScrollVector = new Vector2(0, 0);
+                if (Mathf.Abs(transform.position.y - bumper.transform.position.y) > 10)
+                {
+
+                    bumperScrollVector.y = scrollVector.y + 0.01f;
+                }
+                else
+                {
+                    bumperScrollVector = scrollVector;
+                }
+
+                    bumper.transform.Translate(bumperScrollVector);
                   
    
             }
             
 
         }
-        else
+       /* else
         {
-            while ((this.transform.position.y - bumper.transform.position.y) > 10)
+            *//*while ((this.transform.position.y - bumper.transform.position.y) > 10)
             {
 
                 Vector3 targetPosition = new Vector3(this.transform.position.x, this.transform.position.y - 10, this.transform.position.z);
                 bumper.transform.Translate(Vector3.SmoothDamp(bumper.transform.position, targetPosition, ref currentVelocityOfBumper, smoothTime));
-            }
-        }
+            }*//*
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -120,10 +130,11 @@ public class CameraScroller : MonoBehaviour
       //  Debug.Log("Camera Collider triggered");
         if (collision.gameObject.CompareTag("ScrollStopper"))
         {
-            timesStopped++;
+            
           //  Debug.Log("Has correct tag");
             canScroll = false;
             currentTimeRemaining = timeBetweenScrolls[timesStopped];
+            timesStopped++;
             timerIsRunning = true;
         }
     }
