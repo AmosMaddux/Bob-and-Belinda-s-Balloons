@@ -50,10 +50,35 @@ public class Joystick : MonoBehaviour
         // moveCharacter(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
     }
 
-    //physicis movements should always be in fixed update
-    private void FixedUpdate()
+    void touchTracker()
     {
-        
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            touchBeginning = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
+
+            //set the joysticks position to the touch
+            innerCircle.transform.position = touchBeginning;
+            outerCircle.transform.position = touchBeginning;
+
+            //make the joystick visible when touch starts
+            innerCircle.GetComponent<SpriteRenderer>().enabled = true;
+            outerCircle.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            touchStart = true;
+            touchEnding = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
+        }
+        else
+        {
+            touchStart = false;
+            //lets see if this changes how both climber and bumper move when only one section has input...success!!!
+            climberDirection = Vector2.zero;
+            bumperDirection = Vector2.zero;
+        }
+
     }
 
     private void touchMovement()
@@ -84,20 +109,7 @@ public class Joystick : MonoBehaviour
                                                                             outerCircle.transform.position.y + (climberDirection.y * offsetClampMagnitude));
            // Debug.Log("Log Condition 2: Barrier is at " + bumperPlayerInputBarrier + " and touchPosition is at " + touchBeginning.y);
             }
-            else
-            {
-               // Debug.Log("Error: Touch is not within parameters");
-            }
-            //Vector2 offset = touchEnding - touchBeginning;
-            //direction = Vector2.ClampMagnitude(offset, 1.0f); //prevents the offset from being greater than 1 in either direction.
-            //I am making it so that the joystick only gets direction and then can send it over to the climber script
-
-            //Vector2 direction = Vector2.ClampMagnitude(offset, offsetClampMagnitude); //prevents the offset from being greater than 1 in either direction.
-            //moveCharacter(direction); //have to reverse it cuz camera and GUI use different coordinates????????
-
-            //set the innercircle to follow the movement of the direction by adding these vectors together.
-            //innerCircle.transform.position = new Vector2(touchBeginning.x + (direction.x * offsetClampMagnitude),
-              //                                                              touchBeginning.y + (direction.y * offsetClampMagnitude));
+                                                                        
 
         }
         else
@@ -109,11 +121,7 @@ public class Joystick : MonoBehaviour
         }
     }
 
-    void moveCharacter(Vector2 direction)
-    {
-        //player.Translate(direction * speed * Time.deltaTime);
-    }
-    //I wil write a new version of the above method that wil send a vector to the climber script
+    
 
     public Vector2 getBumperDirection()
     {
@@ -143,34 +151,5 @@ public class Joystick : MonoBehaviour
         }
     }
 
-    void touchTracker()
-    {
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            touchBeginning = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
-
-            //set the joysticks position to the touch
-            innerCircle.transform.position = touchBeginning;
-            outerCircle.transform.position = touchBeginning;
-
-            //make the joystick visible when touch starts
-            innerCircle.GetComponent<SpriteRenderer>().enabled = true;
-            outerCircle.GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            touchStart = true;
-            touchEnding = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
-        }
-        else
-        {
-            touchStart = false;
-            //lets see if this changes how both climber and bumper move when only one section has input...success!!!
-            climberDirection = Vector2.zero;
-            bumperDirection = Vector2.zero;
-        }
-        
-    }
+   
 }

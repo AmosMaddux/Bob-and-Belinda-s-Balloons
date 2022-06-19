@@ -146,6 +146,7 @@ public class Climber : MonoBehaviour
        // Debug.Log("Current velocity is " + currentVelocity);
         //Debug.Log("Velocity is supposedly " + myRigidbody.velocity);
 
+
         //set the animator to the run animations IF the climber has horizontal speed
         //will eventually need to change this so that it only runs if touching the ground
         bool playerHasHorizontalInput = Mathf.Abs(GetComponent<Joystick>().getClimberDirection().x) > Mathf.Epsilon;

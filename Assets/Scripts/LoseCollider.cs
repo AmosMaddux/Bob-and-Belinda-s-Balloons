@@ -27,7 +27,7 @@ public class LoseCollider : MonoBehaviour
           //  Debug.Log("LoseCollider Triggered");
             levelController.BallLost();
             Destroy(collision.gameObject);
-           // Debug.Log("Triggered by balls");
+            Debug.Log("Triggered by balls");
 
 
         }
@@ -35,7 +35,7 @@ public class LoseCollider : MonoBehaviour
         if (collision.gameObject.CompareTag("Cannon"))
         {
             levelController.ProcessDeath();
-           // Debug.Log("Triggered by cannon");
+            Debug.Log("Triggered by cannon");
 
         }
 
