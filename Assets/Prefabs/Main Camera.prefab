@@ -123,10 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7a712f0e99e904199aae161ab49b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 1
+  scrollSpeed: 0.5
   bumper: {fileID: 0}
   loseCollider: {fileID: 0}
-  heightDetector: {fileID: 0}
   upperBarrier: {fileID: 0}
   joystickOuterCircle: {fileID: 0}
   joystickInnerCircle: {fileID: 0}

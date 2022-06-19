@@ -20,6 +20,7 @@ public class CameraScroller : MonoBehaviour
 
     //cached refs
     [SerializeField] GameObject bumper;
+    [SerializeField] GameObject background;
     [SerializeField] GameObject loseCollider;
    // [SerializeField] GameObject heightDetector;
     [SerializeField] BoxCollider2D upperBarrier;
@@ -91,6 +92,8 @@ public class CameraScroller : MonoBehaviour
             upperBarrier.transform.Translate(scrollVector);
             joystickInnerCircle.transform.Translate(scrollVector);
             joystickOuterCircle.transform.Translate(scrollVector);
+            
+            background.transform.Translate(new Vector3(0, scrollVector.y / 2, 0));
 
 
             

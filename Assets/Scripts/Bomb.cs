@@ -12,7 +12,8 @@ public class Bomb : MonoBehaviour
     [SerializeField] GameObject bomb;
     [SerializeField] public LayerMask groundLayer; //the layer the rays will pick from
     [SerializeField] public LayerMask unbreakableLayer; //the layer the rays will pick from
-    [SerializeField] public LayerMask climberLayer; 
+    [SerializeField] public LayerMask climberLayer;
+    [SerializeField] public LayerMask explodableLayer;
     [SerializeField] GameObject explosionVFX;
 
 
@@ -60,17 +61,20 @@ public class Bomb : MonoBehaviour
 
 
         yield return new WaitForSeconds(explosionDelay);
+        GetComponent<DestroyBlock>().Explosion(explodableLayer, bombClone.GetComponent<Transform>().position, raycastDistance, angleIncrement, cycles);
+/*
         GetComponent<DestroyBlock>().Explosion(groundLayer, bombClone.GetComponent<Transform>().position, raycastDistance, angleIncrement, cycles);
         GetComponent<DestroyBlock>().Explosion(unbreakableLayer, bombClone.GetComponent<Transform>().position, raycastDistance, angleIncrement, cycles);
         GetComponent<DestroyBlock>().Explosion(climberLayer, bombClone.GetComponent<Transform>().position, raycastDistance, angleIncrement, cycles);
-
+*/
         Vector3 secondExplosionSource = new Vector3(bombClone.GetComponent<Transform>().position.x,
                                                     bombClone.GetComponent<Transform>().position.y + secondExplosionVerticalOffset,
                                                     bombClone.GetComponent<Transform>().position.z);
-        
-        GetComponent<DestroyBlock>().Explosion(groundLayer, secondExplosionSource, raycastDistance, angleIncrement, cycles);
+        GetComponent<DestroyBlock>().Explosion(explodableLayer, secondExplosionSource, raycastDistance, angleIncrement, cycles);
+
+        /*GetComponent<DestroyBlock>().Explosion(groundLayer, secondExplosionSource, raycastDistance, angleIncrement, cycles);
         GetComponent<DestroyBlock>().Explosion(unbreakableLayer, secondExplosionSource, raycastDistance, angleIncrement, cycles);
-        GetComponent<DestroyBlock>().Explosion(climberLayer, secondExplosionSource, raycastDistance, angleIncrement, cycles);
+        GetComponent<DestroyBlock>().Explosion(climberLayer, secondExplosionSource, raycastDistance, angleIncrement, cycles);*/
         /* GetComponent<DestroyBlock>().Explosion(groundLayer, bombClone.GetComponent<Transform>().position, secondRaycastDistance);
          /* GetComponent<DestroyBlock>().Explosion(groundLayer, bombClone.GetComponent<Transform>().position, secondRaycastDistance);
          GetComponent<DestroyBlock>().Explosion(unbreakableLayer, bombClone.GetComponent<Transform>().position, secondRaycastDistance);

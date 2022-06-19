@@ -43,8 +43,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48aeab7fa00a99447ac7bc6c83eb5229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballsRemaining: 5
-  climberMode: 1
-  cannonMode: 0
-  bumperMode: 0
-  cannonball: {fileID: 0}
+  ballsAvailable: 5
+  bombsAvailable: 0
+  timeSlowFactor: 0.3
+  gameOverWaitTime: 2
+  timeBetweenScrolls:
+  - 2
+  - 2
+  - 2
+  canClimberMove: 1
+  canBumperMove: 1
+  isBallFlying: 0
+  isBumperStuck: 0
+  ballsAvailableText: {fileID: 0}
+  timerText: {fileID: 0}
+  bombsAvailableText: {fileID: 0}
+  nextLevelButton: {fileID: 0}
+  cannonSprite: {fileID: 0}
+  shader: {fileID: 0}
