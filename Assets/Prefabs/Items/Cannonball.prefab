@@ -63,6 +63,7 @@ MonoBehaviour:
   groundTile: {fileID: 11400000, guid: d3edcc221d5a4ea4ca6f0759d4cb6d95, type: 2}
   groundTileMap: {fileID: 0}
   climber: {fileID: 0}
+  shatterVFX: {fileID: 0}
 --- !u!1 &3439361336887093108
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +127,7 @@ MonoBehaviour:
   groundTile: {fileID: 11400000, guid: d3edcc221d5a4ea4ca6f0759d4cb6d95, type: 2}
   groundTileMap: {fileID: 0}
   climber: {fileID: 0}
+  shatterVFX: {fileID: 0}
 --- !u!1 &7462663286209826688
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,3 +292,4 @@ MonoBehaviour:
   groundTile: {fileID: 11400000, guid: d3edcc221d5a4ea4ca6f0759d4cb6d95, type: 2}
   groundTileMap: {fileID: 0}
   climber: {fileID: 0}
+  shatterVFX: {fileID: 0}

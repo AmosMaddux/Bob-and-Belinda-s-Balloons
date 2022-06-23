@@ -9,6 +9,7 @@ public class DestroyBlock : MonoBehaviour
     public RuleTile groundTile;
     public Tilemap groundTileMap;
     [SerializeField] Climber climber;
+    [SerializeField] GameObject shatterVFX;
     
 
     
@@ -65,6 +66,12 @@ public class DestroyBlock : MonoBehaviour
                         //StartCoroutine(BreakBlock(hit.collider.gameObject.GetComponent<Tilemap>(), endPos)); //gets the tilemap to be fed into the function 
                         BreakBlock(hit.collider.gameObject.GetComponent<Tilemap>(), endPos);    
                     }
+
+                  /*  if (hit.collider.gameObject.CompareTag("Crystals"))
+                    {
+                        //StartCoroutine(BreakBlock(hit.collider.gameObject.GetComponent<Tilemap>(), endPos)); //gets the tilemap to be fed into the function 
+                        BreakBlock(hit.collider.gameObject.GetComponent<Tilemap>(), endPos);
+                    }*/
                 }
             }
         } 
@@ -77,9 +84,16 @@ public class DestroyBlock : MonoBehaviour
         position.y = Mathf.Floor(position.y);//gets the closest integer value to x. used for raycasting. maybe not necessary for collsions only
 
         //I can add an explosion particle effect here too
+        PlayShatterVFX(position);
         map.SetTile(new Vector3Int((int)position.x, (int)position.y, 0), null); //sets a null tile at the indicated position
 
         
+    }
+
+    void PlayShatterVFX (Vector2 position)
+    {
+        GameObject shatterVFXClone = Instantiate(shatterVFX, position, Quaternion.identity);
+        Destroy(shatterVFXClone, 3f);
     }
 
 }

@@ -57,12 +57,15 @@ public class Cannonball : MonoBehaviour
         Destroy(gameObject);
     }
 
+    
+
 
   
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         GetComponent<DestroyBlock>().Explosion(groundLayer, this.GetComponent<Transform>().position, raycastDistance, angleIncrement, cycles);
+        //GetComponent<DestroyBlock>().Explosion((LayerMask.GetMask("Crystals")), this.GetComponent<Transform>().position, 0.6f, angleIncrement, cycles);
 
         //This will compare tha last collision with the current collision and tweak the velocity if the y values are too similar
         newCollisionYValue = this.transform.position.y;

@@ -10,6 +10,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] float bombsAvailable = 5f;
     [SerializeField] float timeSlowFactor = 0.5f;
     [SerializeField] float gameOverWaitTime = 5f;
+    private int score = 0;
     float normalTime;
 
     [SerializeField] float[] timeBetweenScrolls;
@@ -35,6 +36,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] TextMeshProUGUI ballsAvailableText;
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] TextMeshProUGUI bombsAvailableText;
+    [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Button nextLevelButton;
     [SerializeField] GameObject cannonSprite;
     [SerializeField] SpriteRenderer shader;
@@ -70,7 +72,7 @@ public class LevelController : MonoBehaviour
         ShowCannonIfTriggered();
         UpdateTimer();
         WinLevel();
-        Debug.Log("isBumperStuck = " + isBumperStuck);
+        //Debug.Log("isBumperStuck = " + isBumperStuck);
     }
 
     private void UpdateTimer()
@@ -79,6 +81,12 @@ public class LevelController : MonoBehaviour
         float seconds = Mathf.FloorToInt(cameraScroller.GetCurrentTimeRemaining() % 60);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void UpdateScore(int pointValue)
+    {
+        score += pointValue;
+        scoreText.text = score.ToString(); 
     }
 
     public void SetClimberInWinZone(bool isClimberInWinZone)

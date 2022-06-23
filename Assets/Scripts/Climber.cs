@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Climber : MonoBehaviour
 {
@@ -12,14 +13,19 @@ public class Climber : MonoBehaviour
     [SerializeField] private Animator myAnimator;
     [SerializeField] GameObject bomb;
     [SerializeField] Transform myTransform;
+    [SerializeField] private Tilemap ladder;
     LevelController levelController;
 
     //configs
     [Header("Movement")]
     [SerializeField] private float movementSpeed = 5.0f;
+    [SerializeField] private float climbSpeed = 5.0f;
     [SerializeField] private float jumpForce = 5.0f;
     [SerializeField] private float jumpThreshold = 0.3f;
     [SerializeField] private float timeBetweenJumps = 1f;
+    [SerializeField] [Range(0, 1)] private float ladderWaitToGrabTime = 0.5f;
+    private float gravityScaleAtStart;
+    private bool initialLadderTouch = true;
 
     [Header("Bomb")]
     [SerializeField] private float spawnBombThreshold = -0.8f;
@@ -37,15 +43,17 @@ public class Climber : MonoBehaviour
     bool bombSpawnPeriodOver = true;
     bool jumpPeriodOver = true;
     bool isAlive = true;
+    
 
 
 
-    int direction;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         levelController = FindObjectOfType<LevelController>();
+        gravityScaleAtStart = myRigidbody.gravityScale;
     }
 
     // Update is called once per frame
@@ -66,10 +74,14 @@ public class Climber : MonoBehaviour
 
                 Move();
                 Jump();
+                Climb();
                 SetBomb();
+                //BreakCrystal();
             }
 
         }
+
+        Debug.Log("Gravity: " + myRigidbody.gravityScale);
 
 
     }
@@ -182,20 +194,60 @@ public class Climber : MonoBehaviour
         {
             if(IsOnGround())
             {
-                if (jumpPeriodOver)
+                if (!IsTouchingLadder())
                 {
-                    Vector2 jumpVelocity = myRigidbody.velocity;
-                    jumpVelocity.y = jumpForce;
-                    myRigidbody.velocity = jumpVelocity;
-                    jumpPeriodOver = false;
-                    StartCoroutine("NoJumpPeriodTimer");
+                    if (jumpPeriodOver)
+                    {
+                        Vector2 jumpVelocity = myRigidbody.velocity;
+                        jumpVelocity.y = jumpForce;
+                        myRigidbody.velocity = jumpVelocity;
+                        jumpPeriodOver = false;
+                        StartCoroutine(NoJumpPeriodTimer());
+                    }
                 }
+                
             }
             
 
             
         }
     }
+
+    private void Climb()
+    {
+        if (IsTouchingLadder())
+        {
+            float yMovementInput = GetComponent<Joystick>().getClimberDirection().y; // this gets the whatever axis we are using for the current device. It is scaleable. So pushing the joystick a little or turning the phone a little pushes a little.
+            Vector2 climbingVelocity = new Vector2(myRigidbody.velocity.x, 0);
+            myRigidbody.gravityScale = 0;
+            if (yMovementInput > 0.5 || yMovementInput < -0.5)
+            {
+                climbingVelocity = new Vector2(myRigidbody.velocity.x, yMovementInput * climbSpeed);
+            }
+            myRigidbody.velocity = climbingVelocity;
+            
+
+            // bool playerVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon; //couldn't we use a collision with the ladder instead?
+            // myAnimator.SetBool("isClimbing", playerVerticalSpeed);
+        }
+        else
+        {
+            myRigidbody.gravityScale = gravityScaleAtStart;
+            //myAnimator.SetBool("isClimbing", false); // takes fo the bug where he keeps climbing if you hold up after leaving a ladder
+        }
+
+
+
+
+    }
+
+   /* private void BreakCrystal()
+    {
+        if (myBody.IsTouchingLayers(LayerMask.GetMask("Crystals")))
+        {
+            bomb.GetComponent<DestroyBlock>().Explosion(LayerMask.GetMask("Crystals"), myTransform.position, 0.8f, 45, 1);
+        }
+    }*/
 
     private void SetBomb()
     {
@@ -284,5 +336,71 @@ public class Climber : MonoBehaviour
         {
             return false;
         }
+    }
+
+/*    IEnumerator LadderWaitToGrabTime()
+    {
+        yield return new WaitForSeconds(ladderWaitToGrabTime);
+    }*/
+
+    public bool IsTouchingLadder()
+    {
+        if (myFeet.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        /* Vector3Int ladderCellPosition = new Vector3Int(ladder.WorldToCell(myTransform.position).x, ladder.WorldToCell(myTransform.position).y, 0);
+
+         if (myFeet.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+         {
+             if (Mathf.Abs(myTransform.position.x - ladder.GetCellCenterWorld(ladderCellPosition).x) < 0.3f)
+             {
+                 initialLadderTouch = false;
+                 return true;
+             }
+             else
+             {
+                 return false;
+             }
+
+         }
+         else
+         {
+             initialLadderTouch = true;
+             return false;
+         }*/
+        /*  if (initialLadderTouch)
+          {
+              StartCoroutine(LadderWaitToGrabTime());
+              if (myFeet.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+              {
+                  initialLadderTouch = false;
+                  return true;
+              }
+              else
+              {
+                  initialLadderTouch = true;
+                  return false;
+              }
+
+          }
+          else
+          {
+              if (myFeet.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+              {
+                  initialLadderTouch = false;
+                  return true;
+              }
+              else
+              {
+                  initialLadderTouch = true;
+                  return false;
+              }
+          }*/
+
     }
 }
